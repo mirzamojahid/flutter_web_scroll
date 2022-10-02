@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <base href="$FLUTTER_BASE_HREF">
+  <meta charset="UTF-8">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="flutter_web_scroll">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <title>flutter_web_scroll</title>
+  <link rel="manifest" href="manifest.json">
+
+  <script>
+
+
+
+    // The value below is injected by flutter build, do not touch.
+    var serviceWorkerVersion = null;
+    console.log('app.js file has been started');
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer>
+
+  </script>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --tourxcolor: white;
+    }
+
+    .make-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    #splash {
+      background-color: var(--tourxcolor);
+      height: 100%;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div id="splash" class="make-center" style="opacity: 0.3;">
+
+    <img src="./icons/tourx.png" style="width: 220px;">
+  </div>
+
+  <script>
+
+    let startTime = 0;
+    let endTime = 0;
+
+    function getTimestampInSecondsStart() {
+      return Math.floor(Date.now() / 1000);
+    }
+
+    function getTimestampInSecondsEnd() {
+      return Math.floor(Date.now() / 1000);
+    }
+    window.addEventListener('load', function (ev) {
+      // Download main.dart.js
+      // console.log(window.performance);
+      console.log('app.js file has been loaded');
+
+      console.log(ev.currentTarget.window);
+      console.log(ev.timeStamp);
+
+      _flutter.loader.loadEntrypoint({
+
+
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+
+        },
+        onEntrypointLoaded: function (engineInitializer) {
+
+          engineInitializer.initializeEngine().then(function (appRunner) {
+
+            /*
+             function getTimestampInSeconds() {
+                          return Math.floor(Date.now() / 1000);
+                        }
+            
+            */
+            endTime = getTimestampInSecondsEnd();
+            console.log("Website full download & initially Web app load Time: " + getTimestampInSecondsEnd());
+
+            async function test() {
+              console.log('start timer');
+              await new Promise(resolve => setTimeout(resolve, 500));
+              console.log('after 1 second');
+              appRunner.runApp();
+              console.log("TourX: " + ev.target);
+              console.log(ev.currentTarget.window);
+            }
+            test();
+
+          });
+
+
+
+        }
+
+
+
+      }
+
+      );
+
+
+
+    });
+
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // do things after the DOM loads partially
+      console.log("DOM is loaded");
+
+      /*
+            function getTimestampInSeconds() {
+              return Math.floor(Date.now() / 1000)
+            }
+      
+            */
+
+      startTime = getTimestampInSecondsStart();
+
+      console.log("Website Start Time: " + getTimestampInSecondsStart());
+
+
+      var now = new Date().getTime();
+
+      var page_load_time = now - performance.timing.navigationStart;
+      console.log("User-perceived page loading time: " + page_load_time);
+      console.log("web page loading time: " + (startTime - endTime));
+
+    });
+
+
+  </script>
+</body>
+
+</html>
